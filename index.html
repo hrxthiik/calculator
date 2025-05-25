@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Remainder Calculator</title>
+  <style>
+    body {
+      background-color: #ffffff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 20px 0 100px 0;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      margin-bottom: 15px;
+      font-weight: 700;
+      font-size: 32px;
+      color: #222;
+      user-select: none;
+      text-align: center;
+      width: 100%;
+      max-width: 95vw;
+    }
+
+    .calculator {
+      background-color: #f3f3f3;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 400px;
+      box-sizing: border-box;
+      margin: 0 15px;
+    }
+
+    .display {
+      background-color: #e6e6e6;
+      color: #000;
+      font-size: 40px;
+      font-weight: bold;
+      padding: 25px 15px 10px 15px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      text-align: right;
+      min-height: 75px;
+      overflow-wrap: break-word;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .remainder {
+      font-size: 20px;
+      font-weight: 600;
+      color: #333;
+      margin-top: 5px;
+      text-align: right;
+      user-select: none;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    button {
+      padding: 28px;
+      font-size: 28px;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      background-color: #dcdcdc;
+      color: #000;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      outline: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:hover {
+      background-color: #c0c0c0;
+    }
+
+    button:focus {
+      outline: none;
+      box-shadow: none;
+    }
+
+    .orange {
+      background-color: #ff9500;
+      color: white;
+    }
+
+    .orange:hover {
+      background-color: #ffa733;
+    }
+
+    .wide {
+      grid-column: span 4;
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      font-family: 'Segoe UI', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      color: #555;
+      user-select: none;
+      max-width: 95vw;
+      text-align: right;
+    }
+
+    .footer a {
+      color: #ff9500;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive for mobile devices */
+    @media (max-width: 450px) {
+      body {
+        padding: 10px 0 80px 0;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .calculator {
+        padding: 20px;
+        border-radius: 12px;
+        margin: 0 auto;
+      }
+
+      .display {
+        font-size: 32px;
+        min-height: 60px;
+        padding: 20px 10px 10px 10px;
+      }
+
+      .remainder {
+        font-size: 16px;
+      }
+
+      button {
+        padding: 18px;
+        font-size: 22px;
+      }
+
+      .footer {
+        position: static;
+        margin-top: 15px;
+        text-align: center;
+        width: 100%;
+        padding: 0 15px;
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Remainder calculator</h1>
+  <div class="calculator">
+    <div class="display">
+      <div id="mainDisplay">0</div>
+      <div id="remainderDisplay" class="remainder"></div>
+    </div>
+    <div class="buttons">
+      <button onclick="addToDisplay('%')">%</button>
+      <button onclick="addToDisplay('√')">√</button>
+      <button onclick="backspace()">⌫</button>
+      <button onclick="clearDisplay()">AC</button>
+
+      <button onclick="addToDisplay('7')">7</button>
+      <button onclick="addToDisplay('8')">8</button>
+      <button onclick="addToDisplay('9')">9</button>
+      <button class="orange" onclick="addToDisplay('÷')">÷</button>
+
+      <button onclick="addToDisplay('4')">4</button>
+      <button onclick="addToDisplay('5')">5</button>
+      <button onclick="addToDisplay('6')">6</button>
+      <button class="orange" onclick="addToDisplay('×')">×</button>
+
+      <button onclick="addToDisplay('1')">1</button>
+      <button onclick="addToDisplay('2')">2</button>
+      <button onclick="addToDisplay('3')">3</button>
+      <button class="orange" onclick="addToDisplay('-')">−</button>
+
+      <button onclick="power()">xʸ</button>
+      <button onclick="addToDisplay('.')">.</button>
+      <button onclick="addToDisplay('0')">0</button>
+      <button class="orange" onclick="addToDisplay('+')">+</button>
+
+      <button class="orange wide" onclick="calculate()">=</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    _groupcalchrithik_<br/>
+    Follow me <a href="https://www.instagram.com/_.hrxthiik_?igsh=NGt3MnB1NXNxbDNx" target="_blank" rel="noopener noreferrer">@_.hrxthiik_</a><br/>
+    Developer contact: <a href="mailto:hrithik200927@gmail.com">hrithik200927@gmail.com</a>
+  </div>
+
+  <script>
+    const mainDisplay = document.getElementById('mainDisplay');
+    const remainderDisplay = document.getElementById('remainderDisplay');
+
+    function addToDisplay(value) {
+      const current = mainDisplay.textContent;
+      if (current === '0' || current === 'Error') {
+        mainDisplay.textContent = value;
+      } else {
+        mainDisplay.textContent += value;
+      }
+      remainderDisplay.textContent = '';
+    }
+
+    function clearDisplay() {
+      mainDisplay.textContent = '0';
+      remainderDisplay.textContent = '';
+    }
+
+    function backspace() {
+      let text = mainDisplay.textContent;
+      mainDisplay.textContent = text.length > 1 ? text.slice(0, -1) : '0';
+      remainderDisplay.textContent = '';
+    }
+
+    function power() {
+      addToDisplay('^');
+    }
+
+    function calculate() {
+      try {
+        let expression = mainDisplay.textContent
+          .replace(/÷/g, '/')
+          .replace(/×/g, '*')
+          .replace(/\^/g, '**')
+          .replace(/√(\d+|\([^\)]+\))/g, 'Math.sqrt($1)');
+
+        let result = Function('"use strict";return (' + expression + ')')();
+
+        if (!isFinite(result)) throw Error('Invalid');
+
+        let remainderText = '';
+        const simpleDiv = expression.match(/^(\d+)\s*\/\s*(\d+)$/);
+        if (simpleDiv) {
+          const [_, a, b] = simpleDiv;
+          const remainder = parseInt(a) % parseInt(b);
+          if (remainder !== 0) remainderText = `Remainder: ${remainder}`;
+        }
+
+        mainDisplay.textContent = result;
+        remainderDisplay.textContent = remainderText;
+      } catch {
+        mainDisplay.textContent = 'Error';
+        remainderDisplay.textContent = '';
+      }
+    }
+
+    document.addEventListener('keydown', (event) => {
+      const key = event.key;
+      if (!isNaN(key) || ['+', '-', '*', '/', '.', '%', '^'].includes(key)) {
+        if (key === '*') {
+          addToDisplay('×');
+        } else if (key === '/') {
+          addToDisplay('÷');
+        } else {
+          addToDisplay(key);
+        }
+      } else if (key === 'Enter') {
+        event.preventDefault();
+        calculate();
+      } else if (key === 'Backspace') {
+        backspace();
+      } else if (key.toLowerCase() === 'c') {
+        clearDisplay();
+      }
+    });
+  </script>
+</body>
+</html>
