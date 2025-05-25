@@ -12,91 +12,79 @@
       flex-direction: column;
       align-items: center;
       margin: 0;
-      padding: 20px 0 100px 0;
+      padding: 20px 10px 100px 10px;
       min-height: 100vh;
       box-sizing: border-box;
     }
 
     h1 {
-      margin-bottom: 15px;
-      font-weight: 700;
       font-size: 32px;
+      font-weight: bold;
       color: #222;
-      user-select: none;
       text-align: center;
-      width: 100%;
-      max-width: 95vw;
+      margin-bottom: 15px;
+      user-select: none;
     }
 
     .calculator {
-      background-color: #f3f3f3;
-      border-radius: 15px;
+      background: #f3f3f3;
+      border-radius: 20px;
       padding: 25px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
       width: 100%;
       max-width: 400px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
       box-sizing: border-box;
-      margin: 0 15px;
     }
 
     .display {
-      background-color: #e6e6e6;
-      color: #000;
-      font-size: 40px;
-      font-weight: bold;
-      padding: 25px 15px 10px 15px;
-      border-radius: 10px;
-      margin-bottom: 15px;
+      background: #f0f0f0;
+      border-radius: 15px;
+      padding: 20px 15px 10px 15px;
       text-align: right;
-      min-height: 75px;
-      overflow-wrap: break-word;
+      font-size: 48px;
+      font-weight: bold;
+      color: #000;
+      min-height: 70px;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
+      overflow-wrap: break-word;
     }
 
     .remainder {
-      font-size: 20px;
+      font-size: 18px;
+      color: #666;
       font-weight: 600;
-      color: #333;
       margin-top: 5px;
-      text-align: right;
-      user-select: none;
     }
 
     .buttons {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
+      gap: 12px;
+      margin-top: 20px;
     }
 
     button {
-      padding: 28px;
-      font-size: 28px;
-      font-weight: 700;
+      padding: 22px;
+      font-size: 26px;
+      font-weight: 600;
       border: none;
       border-radius: 12px;
-      background-color: #dcdcdc;
+      background-color: #e0e0e0;
       color: #000;
       cursor: pointer;
       transition: background-color 0.2s ease;
-      outline: none;
       user-select: none;
-      -webkit-tap-highlight-color: transparent;
     }
 
     button:hover {
-      background-color: #c0c0c0;
-    }
-
-    button:focus {
-      outline: none;
-      box-shadow: none;
+      background-color: #ccc;
     }
 
     .orange {
       background-color: #ff9500;
-      color: white;
+      color: #fff;
     }
 
     .orange:hover {
@@ -111,69 +99,45 @@
       position: fixed;
       bottom: 10px;
       right: 10px;
-      font-family: 'Segoe UI', sans-serif;
-      font-weight: 600;
       font-size: 14px;
       color: #555;
-      user-select: none;
-      max-width: 95vw;
       text-align: right;
+      user-select: none;
     }
 
     .footer a {
       color: #ff9500;
+      font-weight: bold;
       text-decoration: none;
-      font-weight: 700;
     }
 
     .footer a:hover {
       text-decoration: underline;
     }
 
-    /* Responsive for mobile devices */
     @media (max-width: 450px) {
-      body {
-        padding: 10px 0 80px 0;
-      }
-
-      h1 {
-        font-size: 26px;
-      }
-
-      .calculator {
-        padding: 20px;
-        border-radius: 12px;
-        margin: 0 auto;
-      }
-
       .display {
-        font-size: 32px;
-        min-height: 60px;
-        padding: 20px 10px 10px 10px;
-      }
-
-      .remainder {
-        font-size: 16px;
+        font-size: 36px;
+        padding: 15px 10px;
       }
 
       button {
-        padding: 18px;
         font-size: 22px;
+        padding: 18px;
       }
 
       .footer {
         position: static;
-        margin-top: 15px;
         text-align: center;
-        width: 100%;
-        padding: 0 15px;
-        font-size: 12px;
+        margin-top: 20px;
       }
     }
   </style>
 </head>
 <body>
-  <h1>Remainder calculator</h1>
+
+  <h1>Remainder Calculator</h1>
+
   <div class="calculator">
     <div class="display">
       <div id="mainDisplay">0</div>
@@ -211,8 +175,8 @@
 
   <div class="footer">
     _groupcalchrithik_<br/>
-    Follow me <a href="https://www.instagram.com/_.hrxthiik_?igsh=NGt3MnB1NXNxbDNx" target="_blank" rel="noopener noreferrer">@_.hrxthiik_</a><br/>
-    Developer contact: <a href="mailto:hrithik200927@gmail.com">hrithik200927@gmail.com</a>
+    Follow me <a href="https://www.instagram.com/_.hrxthiik_?igsh=NGt3MnB1NXNxbDNx" target="_blank">@_.hrxthiik_</a><br/>
+    Developer: <a href="mailto:hrithik200927@gmail.com">hrithik200927@gmail.com</a>
   </div>
 
   <script>
@@ -222,8 +186,15 @@
     function addToDisplay(value) {
       const current = mainDisplay.textContent;
       if (current === '0' || current === 'Error') {
+        if (['+', '-', '*', '/', '^', '×', '÷'].includes(value)) return;
         mainDisplay.textContent = value;
       } else {
+        const lastChar = current.slice(-1);
+        if (
+          ['+', '-', '*', '/', '^', '×', '÷'].includes(lastChar) &&
+          ['+', '-', '*', '/', '^', '×', '÷'].includes(value)
+        ) return;
+        if (lastChar === '%' && value === '%') return;
         mainDisplay.textContent += value;
       }
       remainderDisplay.textContent = '';
@@ -246,22 +217,30 @@
 
     function calculate() {
       try {
-        let expression = mainDisplay.textContent
+        let expression = mainDisplay.textContent;
+        expression = expression
           .replace(/÷/g, '/')
           .replace(/×/g, '*')
           .replace(/\^/g, '**')
-          .replace(/√(\d+|\([^\)]+\))/g, 'Math.sqrt($1)');
+          .replace(/√([0-9.]+|\([^)]+\))/g, 'Math.sqrt($1)')
+          .replace(/(\d+(\.\d+)?)%/g, '($1/100)');
 
-        let result = Function('"use strict";return (' + expression + ')')();
+        expression = expression.replace(/[\+\-\*\/\^]$/, '');
+
+        const result = Function('"use strict"; return (' + expression + ')')();
 
         if (!isFinite(result)) throw Error('Invalid');
 
         let remainderText = '';
-        const simpleDiv = expression.match(/^(\d+)\s*\/\s*(\d+)$/);
-        if (simpleDiv) {
-          const [_, a, b] = simpleDiv;
-          const remainder = parseInt(a) % parseInt(b);
-          if (remainder !== 0) remainderText = `Remainder: ${remainder}`;
+        const lastDivision = expression.match(/(\d+)\s*\/\s*(\d+)/g);
+        if (lastDivision) {
+          const [a, b] = lastDivision[lastDivision.length - 1].split('/').map(Number);
+          if (!isNaN(a) && !isNaN(b)) {
+            const remainder = a % b;
+            if (remainder !== 0) {
+              remainderText = `Remainder: ${remainder}`;
+            }
+          }
         }
 
         mainDisplay.textContent = result;
